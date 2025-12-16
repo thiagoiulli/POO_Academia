@@ -4,6 +4,11 @@
  */
 package visao;
 
+import controle.Gerenciamento;
+
+import javax.swing.*;
+import java.util.Arrays;
+
 /**
  *
  * @author natha
@@ -11,11 +16,13 @@ package visao;
 public class JanelaCadastro extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JanelaCadastro.class.getName());
+    private final Gerenciamento gerenciamento;
 
     /**
      * Creates new form JanelaCadastro
      */
-    public JanelaCadastro() {
+    public JanelaCadastro(Gerenciamento gerenciamento) {
+        this.gerenciamento = gerenciamento;
         initComponents();
     }
 
@@ -257,6 +264,13 @@ public class JanelaCadastro extends javax.swing.JFrame {
 
     private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
         // TODO add your handling code here:
+        if (gerenciamento.CadastrarPessoa(txtF_usuarioCadastro.getText(), txtF_nomeCadastro1.getText(), txtF_emailCadastro2.getText(), txtF_telefoneCadastro3.getText(), Arrays.toString(txtF_senhaCadastro.getPassword())) == 0){
+            JOptionPane.showMessageDialog(getParent(), "Usuário criado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
+            btn_voltarCadastro.doClick();
+        }
+        else{ // gambiarra ao inves de if/else se pa da pra fazer com throw exception, se pa fica melhor
+            JOptionPane.showMessageDialog(getParent(), "Erro criando usuário!", "", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btn_cadastrarActionPerformed
 
     private void txt_nomeCadastroAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txt_nomeCadastroAncestorAdded
@@ -284,7 +298,7 @@ public class JanelaCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField txtF_telefoneCadastro3;
     private javax.swing.JTextField txtF_usuarioCadastro;
     private javax.swing.JLabel txt_emailCadastro;
-    private javax.swing.JLabel txt_nomeCadastro;
+    private javax.swing.JLabel txt_nomeCadastro; //gambiarra TROCA OS LABEL DE NOME PELO AMOR DE DEUS
     private javax.swing.JLabel txt_senhaCadastro;
     private javax.swing.JLabel txt_telefoneCadastro;
     private javax.swing.JLabel txt_titleCadastro;

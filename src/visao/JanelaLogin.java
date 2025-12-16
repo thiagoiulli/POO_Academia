@@ -4,6 +4,8 @@
  */
 package visao;
 
+import controle.Gerenciamento;
+
 /**
  *
  * @author natha
@@ -11,11 +13,13 @@ package visao;
 public class JanelaLogin extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JanelaLogin.class.getName());
+    private final Gerenciamento gerenciamento;
 
     /**
      * Creates new form JanelaLogin
      */
-    public JanelaLogin() {
+    public JanelaLogin(Gerenciamento gerenciamento) {
+        this.gerenciamento = gerenciamento;
         initComponents();
     }
 
@@ -181,7 +185,7 @@ public class JanelaLogin extends javax.swing.JFrame {
 
     private void btn_cadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastroActionPerformed
         // TODO add your handling code here:
-        this.janelaCadastro = new JanelaCadastro();
+        this.janelaCadastro = new JanelaCadastro(gerenciamento);
         janelaCadastro.setVisible(true);
     }//GEN-LAST:event_btn_cadastroActionPerformed
 
