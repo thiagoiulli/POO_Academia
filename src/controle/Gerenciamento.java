@@ -1,5 +1,6 @@
 package controle;
 
+import exceptions.UsuarioExistente;
 import principal.Pessoa;
 
 import java.nio.charset.StandardCharsets;
@@ -14,8 +15,11 @@ public class Gerenciamento {
         usuarios = new ArrayList<>();
     }
 
-    public int CadastrarPessoa(String usuario, String nome, String email, String telefone, String senha){
+    public void CadastrarPessoa(String usuario, String nome, String email, String telefone, String senha) throws UsuarioExistente, NoSuchAlgorithmException {
         String hashSenha;
+        if (pesquisarUsuario(usuario)){
+            throw new UsuarioExistente("Nome de usuário em uso");
+        }
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-1");
             byte[] encodedhash = digest.digest(senha.getBytes(StandardCharsets.UTF_8));
@@ -31,10 +35,18 @@ public class Gerenciamento {
         }
         catch (NoSuchAlgorithmException e){
             System.err.println("Erro ao tratar senha!");
-            return -1;
+            throw e;
         }
         Pessoa p = new Pessoa(usuario, nome, email, telefone, hashSenha);
         usuarios.add(p);
-        return 0;
+    }
+
+    private boolean pesquisarUsuario(String usuario){
+        for (int i = 0; i < usuarios.size(); i++){
+            if (usuarios.get(i).getUsuario().equals(usuario)){
+                return true;
+            }
+        }
+        return false;
     }
 }

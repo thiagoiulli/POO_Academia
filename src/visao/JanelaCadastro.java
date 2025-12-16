@@ -5,8 +5,12 @@
 package visao;
 
 import controle.Gerenciamento;
+import exceptions.UsuarioExistente;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
@@ -264,12 +268,19 @@ public class JanelaCadastro extends javax.swing.JFrame {
 
     private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
         // TODO add your handling code here:
-        if (gerenciamento.CadastrarPessoa(txtF_usuarioCadastro.getText(), txtF_nomeCadastro1.getText(), txtF_emailCadastro2.getText(), txtF_telefoneCadastro3.getText(), Arrays.toString(txtF_senhaCadastro.getPassword())) == 0){
+        //gambiarra tem que verificar se os campos estao preenxidos antes de continuar
+        try {
+            gerenciamento.CadastrarPessoa(txtF_usuarioCadastro.getText(), txtF_nomeCadastro1.getText(), txtF_emailCadastro2.getText(), txtF_telefoneCadastro3.getText(), Arrays.toString(txtF_senhaCadastro.getPassword()));
             JOptionPane.showMessageDialog(getParent(), "Usuário criado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
             btn_voltarCadastro.doClick();
         }
-        else{ // gambiarra ao inves de if/else se pa da pra fazer com throw exception, se pa fica melhor
+        catch(NoSuchAlgorithmException e){
             JOptionPane.showMessageDialog(getParent(), "Erro criando usuário!", "", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (UsuarioExistente e){
+            JOptionPane.showMessageDialog(getParent(), "Nome de usuário ja existe!", "", JOptionPane.ERROR_MESSAGE);
+//            txtF_usuarioCadastro.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.RED), "Usuário ja existe!"));
+            txtF_usuarioCadastro.setBorder(BorderFactory.createLineBorder(Color.RED)); //gambiarra se aumentar os cambos da pra fazer da maneira acima
         }
     }//GEN-LAST:event_btn_cadastrarActionPerformed
 
