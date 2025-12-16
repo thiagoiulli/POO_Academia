@@ -1,5 +1,6 @@
 package principal;
 
-public class Exercicio {
-    
+public abstract class Exercicio {
+    protected String nome;
 }
+

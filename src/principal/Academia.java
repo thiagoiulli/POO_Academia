@@ -8,3 +8,4 @@ public class Academia {
         janelaLogin.setVisible(true);
     }
 }
+

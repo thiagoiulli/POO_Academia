@@ -33,7 +33,7 @@ public class JanelaCadastro extends javax.swing.JFrame {
         txt_senhaCadastro = new javax.swing.JLabel();
         txt_usuarioCadastro = new javax.swing.JLabel();
         txtF_usuarioCadastro = new javax.swing.JTextField();
-        txtF_senhaCadastro = new javax.swing.JTextField();
+        txtF_senhaCadastro = new javax.swing.JPasswordField();
         txt_nomeCadastro = new javax.swing.JLabel();
         txtF_nomeCadastro1 = new javax.swing.JTextField();
         txt_emailCadastro = new javax.swing.JLabel();
@@ -76,6 +76,7 @@ public class JanelaCadastro extends javax.swing.JFrame {
         txtF_usuarioCadastro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         txtF_senhaCadastro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtF_senhaCadastro.setEchoChar('*');
         txtF_senhaCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtF_senhaCadastroActionPerformed(evt);
@@ -279,7 +280,7 @@ public class JanelaCadastro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtF_emailCadastro2;
     private javax.swing.JTextField txtF_nomeCadastro1;
-    private javax.swing.JTextField txtF_senhaCadastro;
+    private javax.swing.JPasswordField txtF_senhaCadastro;
     private javax.swing.JTextField txtF_telefoneCadastro3;
     private javax.swing.JTextField txtF_usuarioCadastro;
     private javax.swing.JLabel txt_emailCadastro;

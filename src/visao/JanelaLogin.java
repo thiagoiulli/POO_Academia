@@ -33,7 +33,7 @@ public class JanelaLogin extends javax.swing.JFrame {
         txt_senha = new javax.swing.JLabel();
         txt_usuario = new javax.swing.JLabel();
         txtF_usuario = new javax.swing.JTextField();
-        txtF_senha = new javax.swing.JTextField();
+        txtF_senha = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         btn_entrar = new javax.swing.JButton();
         btn_cadastro = new javax.swing.JButton();
@@ -70,6 +70,7 @@ public class JanelaLogin extends javax.swing.JFrame {
         txtF_usuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         txtF_senha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtF_senha.setEchoChar('*');
         txtF_senha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtF_senhaActionPerformed(evt);
@@ -195,7 +196,7 @@ public class JanelaLogin extends javax.swing.JFrame {
     private javax.swing.JButton btn_entrar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtF_senha;
+    private javax.swing.JPasswordField txtF_senha;
     private javax.swing.JTextField txtF_usuario;
     private javax.swing.JLabel txt_login;
     private javax.swing.JLabel txt_senha;
