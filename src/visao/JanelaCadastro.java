@@ -268,19 +268,25 @@ public class JanelaCadastro extends javax.swing.JFrame {
 
     private void btn_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarActionPerformed
         // TODO add your handling code here:
-        //gambiarra tem que verificar se os campos estao preenxidos antes de continuar
-        try {
-            gerenciamento.CadastrarPessoa(txtF_usuarioCadastro.getText(), txtF_nomeCadastro1.getText(), txtF_emailCadastro2.getText(), txtF_telefoneCadastro3.getText(), Arrays.toString(txtF_senhaCadastro.getPassword()));
-            JOptionPane.showMessageDialog(getParent(), "Usuário criado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
-            btn_voltarCadastro.doClick();
+        char[] pwdChars = txtF_senhaCadastro.getPassword();
+        String pwd = (pwdChars == null) ? "" : new String(pwdChars);
+        if (txtF_usuarioCadastro.getText().isBlank() || txtF_nomeCadastro1.getText().isBlank() || txtF_emailCadastro2.getText().isBlank() || pwd.isBlank()){
+            JOptionPane.showMessageDialog(getParent(), "Favor preencher todos os campos!", "", JOptionPane.ERROR_MESSAGE);
         }
-        catch(NoSuchAlgorithmException e){
-            JOptionPane.showMessageDialog(getParent(), "Erro criando usuário!", "", JOptionPane.ERROR_MESSAGE);
-        }
-        catch (UsuarioExistente e){
-            JOptionPane.showMessageDialog(getParent(), "Nome de usuário ja existe!", "", JOptionPane.ERROR_MESSAGE);
+        else{
+            try {
+                gerenciamento.CadastrarPessoa(txtF_usuarioCadastro.getText(), txtF_nomeCadastro1.getText(), txtF_emailCadastro2.getText(), txtF_telefoneCadastro3.getText(), Arrays.toString(txtF_senhaCadastro.getPassword()));
+                JOptionPane.showMessageDialog(getParent(), "Usuário criado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
+                btn_voltarCadastro.doClick();
+            }
+            catch(NoSuchAlgorithmException e){
+                JOptionPane.showMessageDialog(getParent(), "Erro criando usuário!", "", JOptionPane.ERROR_MESSAGE);
+            }
+            catch (UsuarioExistente e){
+                JOptionPane.showMessageDialog(getParent(), "Nome de usuário ja existe!", "", JOptionPane.ERROR_MESSAGE);
 //            txtF_usuarioCadastro.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.RED), "Usuário ja existe!"));
-            txtF_usuarioCadastro.setBorder(BorderFactory.createLineBorder(Color.RED)); //gambiarra se aumentar os cambos da pra fazer da maneira acima
+                txtF_usuarioCadastro.setBorder(BorderFactory.createLineBorder(Color.RED)); //gambiarra se aumentar os cambos da pra fazer da maneira acima
+            }
         }
     }//GEN-LAST:event_btn_cadastrarActionPerformed
 
