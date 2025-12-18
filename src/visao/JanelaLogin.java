@@ -5,6 +5,12 @@
 package visao;
 
 import controle.Gerenciamento;
+import exceptions.UsuarioOuSenhaIncorretos;
+
+import javax.swing.*;
+import java.awt.*;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /**
  *
@@ -120,6 +126,11 @@ public class JanelaLogin extends javax.swing.JFrame {
 
         btn_entrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btn_entrar.setText("Entrar");
+        btn_entrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_entrarActionPerformed(evt);
+            }
+        });
 
         btn_cadastro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btn_cadastro.setText("Cadastro");
@@ -192,7 +203,23 @@ public class JanelaLogin extends javax.swing.JFrame {
     private void txtF_senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtF_senhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtF_senhaActionPerformed
-   
+
+    private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt){
+        try{
+            if(gerenciamento.parseLogin(txtF_usuario.getText(), Arrays.toString(txtF_senha.getPassword()))){
+                setVisible(false);
+                this.janelaPrincipal = new JanelaPrincipal(gerenciamento);
+                janelaPrincipal.setVisible(true);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            JOptionPane.showMessageDialog(getParent(), "Erro fazendo login!", "", JOptionPane.ERROR_MESSAGE);
+        } catch (UsuarioOuSenhaIncorretos e) {
+            JOptionPane.showMessageDialog(getParent(), "Usuario ou senha incorretos!", "", JOptionPane.ERROR_MESSAGE);
+            btn_entrar.setBorder(BorderFactory.createLineBorder(Color.RED)); //gambiarra melhorar essa borda
+        }
+    }
+
+    private JanelaPrincipal janelaPrincipal;
     private JanelaCadastro janelaCadastro;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
