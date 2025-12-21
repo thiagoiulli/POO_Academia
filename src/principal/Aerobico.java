@@ -5,9 +5,17 @@ public class Aerobico extends Exercicio{
     private int intensidade; //1-5 ou 1-10, nao sei ainda
 
     public Aerobico(){
+        super();
         tempoMinutos = 0;
         intensidade = 0;
         nome = "";
+    }
+
+    public Aerobico(String nome, int intensidade, float tempoMinutos) {
+        super();
+        this.nome = nome;
+        this.intensidade = intensidade;
+        this.tempoMinutos = tempoMinutos;
     }
 
     public float getTempoMinutos() {

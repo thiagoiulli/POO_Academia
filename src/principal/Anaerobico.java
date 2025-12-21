@@ -1,18 +1,30 @@
 package principal;
 
 public class Anaerobico extends Exercicio{
-    public enum tipo {PEITO, COSTAS, BICEPS, TRICEPS, QUADRICEPS, GLUTEO, PANTURRILHA}
 
+    public enum tipo {PEITO, COSTAS, BICEPS, TRICEPS, QUADRICEPS, GLUTEO, PANTURRILHA}
+    
     private int n_repeticoes;
     private int n_series;
     private float sugestaoDeCarga;
     private tipo atividade;
-
+    
+    public Anaerobico(String nome, tipo atividade, int n_repeticoes, int n_series, float sugestaoDeCarga) {
+        super();
+        this.nome = nome;
+        this.atividade = atividade;
+        this.n_repeticoes = n_repeticoes;
+        this.n_series = n_series;
+        this.sugestaoDeCarga = sugestaoDeCarga;
+    }
+    
     public Anaerobico(){
+        super();
         n_repeticoes = 0;
         n_series = 0;
         sugestaoDeCarga = 0;
         atividade = tipo.PEITO;
+        nome = "";
     }
 
     public int getN_repeticoes() {

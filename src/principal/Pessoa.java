@@ -1,11 +1,14 @@
 package principal;
 
+import controle.Ficha;
+
 public class Pessoa {
     private String usuario;
     private String nome;
     private String email;
     private String telefone;
     private String senha;
+    private Ficha ficha;
 
     public Pessoa(String usuario, String nome, String email, String telefone, String senha) {
         this.usuario = usuario;
@@ -13,6 +16,7 @@ public class Pessoa {
         this.email = email;
         this.telefone = telefone;
         this.senha = senha;
+        this.ficha = new Ficha();
     }
     
     public Pessoa() {
@@ -21,6 +25,7 @@ public class Pessoa {
         this.email = "";
         this.telefone = "";
         this.senha = "";
+        this.ficha = new Ficha();
     }
 
     public String getUsuario() {
@@ -61,6 +66,14 @@ public class Pessoa {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Ficha getFicha() {
+        return ficha;
+    }
+
+    public void setFicha(Ficha ficha) {
+        this.ficha = ficha;
     }
 
     @Override
