@@ -315,7 +315,7 @@ public class JanelaCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField txtF_telefoneCadastro3;
     private javax.swing.JTextField txtF_usuarioCadastro;
     private javax.swing.JLabel txt_emailCadastro;
-    private javax.swing.JLabel txt_nomeCadastro; //gambiarra TROCA OS LABEL DE NOME PELO AMOR DE DEUS
+    private javax.swing.JLabel txt_nomeCadastro;
     private javax.swing.JLabel txt_senhaCadastro;
     private javax.swing.JLabel txt_telefoneCadastro;
     private javax.swing.JLabel txt_titleCadastro;

@@ -18,7 +18,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form JanelaPrincipal
      */
-    public JanelaPrincipal(Gerenciamento gerenciamento){
+    public JanelaPrincipal(Gerenciamento gerenciamento) {
         this.gerenciamento = gerenciamento;
         initComponents();
     }
@@ -35,7 +35,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btn_perfil = new javax.swing.JButton();
         txt_titleAcademia = new javax.swing.JLabel();
-        btn_treino = new javax.swing.JButton();
+        btn_cadastrarTreino = new javax.swing.JButton();
+        btn_verTreino = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,11 +51,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         txt_titleAcademia.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txt_titleAcademia.setText("ACADEMIA");
 
-        btn_treino.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btn_treino.setText("Treino");
-        btn_treino.addActionListener(new java.awt.event.ActionListener() {
+        btn_cadastrarTreino.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btn_cadastrarTreino.setText("Cadastrar Treino");
+        btn_cadastrarTreino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_treinoActionPerformed(evt);
+                btn_cadastrarTreinoActionPerformed(evt);
+            }
+        });
+
+        btn_verTreino.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btn_verTreino.setText("Ver Treino");
+        btn_verTreino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_verTreinoActionPerformed(evt);
             }
         });
 
@@ -68,25 +77,29 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         .addGap(141, 141, 141)
                         .addComponent(txt_titleAcademia))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(btn_perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(btn_treino)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addGap(113, 113, 113)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_perfil, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btn_verTreino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_cadastrarTreino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_perfil, btn_treino});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_cadastrarTreino, btn_perfil});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(txt_titleAcademia)
-                .addGap(53, 53, 53)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_perfil)
-                    .addComponent(btn_treino))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(btn_perfil)
+                .addGap(18, 18, 18)
+                .addComponent(btn_cadastrarTreino)
+                .addGap(18, 18, 18)
+                .addComponent(btn_verTreino)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -108,38 +121,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_perfilActionPerformed
 
-    private void btn_treinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_treinoActionPerformed
+    private void btn_cadastrarTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarTreinoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_treinoActionPerformed
+    }//GEN-LAST:event_btn_cadastrarTreinoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) { /gambiarra comentei pq ta dando erro pra passar o gerenciamento pra ca
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            logger.log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> new JanelaPrincipal().setVisible(true));
-//    }
+    private void btn_verTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verTreinoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_verTreinoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_cadastrarTreino;
     private javax.swing.JButton btn_perfil;
-    private javax.swing.JButton btn_treino;
+    private javax.swing.JButton btn_verTreino;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel txt_titleAcademia;
     // End of variables declaration//GEN-END:variables
