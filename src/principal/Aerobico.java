@@ -8,12 +8,10 @@ public class Aerobico extends Exercicio{
         super();
         tempoMinutos = 0;
         intensidade = 0;
-        nome = "";
     }
 
     public Aerobico(String nome, int intensidade, float tempoMinutos) {
-        super();
-        this.nome = nome;
+        super(nome);
         this.intensidade = intensidade;
         this.tempoMinutos = tempoMinutos;
     }

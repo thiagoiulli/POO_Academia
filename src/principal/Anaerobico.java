@@ -10,8 +10,7 @@ public class Anaerobico extends Exercicio{
     private tipo atividade;
     
     public Anaerobico(String nome, tipo atividade, int n_repeticoes, int n_series, float sugestaoDeCarga) {
-        super();
-        this.nome = nome;
+        super(nome);
         this.atividade = atividade;
         this.n_repeticoes = n_repeticoes;
         this.n_series = n_series;
@@ -24,7 +23,6 @@ public class Anaerobico extends Exercicio{
         n_series = 0;
         sugestaoDeCarga = 0;
         atividade = tipo.PEITO;
-        nome = "";
     }
 
     public int getN_repeticoes() {
