@@ -2,6 +2,7 @@ package controle;
 
 import exceptions.UsuarioExistente;
 import exceptions.UsuarioOuSenhaIncorretos;
+import manArqTxt.ManArqTxt;
 import principal.Pessoa;
 
 import java.nio.charset.StandardCharsets;
@@ -12,10 +13,18 @@ import java.security.MessageDigest;
 public class Gerenciamento {
     ArrayList<Pessoa> usuarios;
     int usuario_logado;
+    ManArqTxt manipulartxt;
 
-    public Gerenciamento(){
+    public Gerenciamento(ManArqTxt manipulartxt){
         usuarios = new ArrayList<>();
         this.usuario_logado = -1;
+        this.manipulartxt = manipulartxt;
+        ArrayList<Pessoa> tmp = manipulartxt.leituraInicial();
+        if (tmp != null){
+            for (int i = 0; i < tmp.size(); i++){
+                usuarios.add(tmp.get(0));
+            }
+        }
     }
 
     public void CadastrarPessoa(String usuario, String nome, String email, String telefone, String senha) throws UsuarioExistente, NoSuchAlgorithmException {
@@ -32,6 +41,7 @@ public class Gerenciamento {
         }
         Pessoa p = new Pessoa(usuario, nome, email, telefone, hashSenha);
         usuarios.add(p);
+        manipulartxt.gravarLogin(usuario, nome, email, telefone, hashSenha);
     }
 
     public void alterarPessoa(String nome, String email, String telefone, String senha) throws NoSuchAlgorithmException{
