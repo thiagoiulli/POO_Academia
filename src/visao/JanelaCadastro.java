@@ -55,7 +55,7 @@ public class JanelaCadastro extends javax.swing.JFrame {
         btn_cadastrar = new javax.swing.JButton();
         btn_voltarCadastro = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
         txt_titleCadastro.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txt_titleCadastro.setText("CADASTRO");
@@ -284,8 +284,7 @@ public class JanelaCadastro extends javax.swing.JFrame {
             }
             catch (UsuarioExistente e){
                 JOptionPane.showMessageDialog(getParent(), "Nome de usuário ja existe!", "", JOptionPane.ERROR_MESSAGE);
-//            txtF_usuarioCadastro.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.RED), "Usuário ja existe!"));
-                txtF_usuarioCadastro.setBorder(BorderFactory.createLineBorder(Color.RED)); //gambiarra se aumentar os cambos da pra fazer da maneira acima
+                txtF_usuarioCadastro.setBorder(BorderFactory.createLineBorder(Color.RED));
             }
         }
     }//GEN-LAST:event_btn_cadastrarActionPerformed

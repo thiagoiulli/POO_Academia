@@ -119,15 +119,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void btn_perfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_perfilActionPerformed
         // TODO add your handling code here:
+        this.janelaPerfil = new JanelaPerfil(gerenciamento);
+        janelaPerfil.setVisible(true);
     }//GEN-LAST:event_btn_perfilActionPerformed
 
     private void btn_cadastrarTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastrarTreinoActionPerformed
         // TODO add your handling code here:
+        this.janelaCadastrarTreino = new JanelaCadastrarTreino(gerenciamento);
+        janelaCadastrarTreino.setVisible(true);
     }//GEN-LAST:event_btn_cadastrarTreinoActionPerformed
 
     private void btn_verTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verTreinoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_verTreinoActionPerformed
+
+    private JanelaPerfil janelaPerfil;
+    private JanelaCadastrarTreino janelaCadastrarTreino;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cadastrarTreino;

@@ -11,9 +11,11 @@ import java.security.MessageDigest;
 
 public class Gerenciamento {
     ArrayList<Pessoa> usuarios;
+    int usuario_logado;
 
     public Gerenciamento(){
         usuarios = new ArrayList<>();
+        this.usuario_logado = -1;
     }
 
     public void CadastrarPessoa(String usuario, String nome, String email, String telefone, String senha) throws UsuarioExistente, NoSuchAlgorithmException {
@@ -23,7 +25,6 @@ public class Gerenciamento {
         String hashSenha;
         try{
             hashSenha = hashPass(senha);
-            System.out.println(hashSenha);
         }
         catch (NoSuchAlgorithmException e){
             System.err.println("Erro ao tratar senha!");
@@ -31,6 +32,25 @@ public class Gerenciamento {
         }
         Pessoa p = new Pessoa(usuario, nome, email, telefone, hashSenha);
         usuarios.add(p);
+    }
+
+    public void alterarPessoa(String nome, String email, String telefone, String senha) throws NoSuchAlgorithmException{
+        usuarios.get(usuario_logado).setEmail(email);
+        usuarios.get(usuario_logado).setNome(nome);
+        usuarios.get(usuario_logado).setTelefone(telefone);
+        System.out.println(usuarios.get(usuario_logado).getSenha());
+        if (!senha.isBlank()){
+            String hashSenha;
+            try{
+                hashSenha = hashPass(senha);
+            }
+            catch (NoSuchAlgorithmException e){
+                System.err.println("Erro ao tratar senha!");
+                throw e;
+            }
+            usuarios.get(usuario_logado).setSenha(hashSenha);
+        }
+        System.out.println(usuarios.get(usuario_logado).getSenha());
     }
 
     private int pesquisarUsuario(String usuario){
@@ -55,6 +75,7 @@ public class Gerenciamento {
             throw e;
         }
         if (usuarios.get(i).getSenha().equals(hashSenha)){
+            this.usuario_logado = i;
             return true;
         }
         else{
@@ -81,5 +102,9 @@ public class Gerenciamento {
             throw e;
         }
         return hashSenha;
+    }
+
+    public Pessoa getUsuarioLogado(){
+        return usuarios.get(this.usuario_logado);
     }
 }

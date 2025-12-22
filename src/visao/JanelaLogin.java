@@ -215,7 +215,7 @@ public class JanelaLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(getParent(), "Erro fazendo login!", "", JOptionPane.ERROR_MESSAGE);
         } catch (UsuarioOuSenhaIncorretos e) {
             JOptionPane.showMessageDialog(getParent(), "Usuario ou senha incorretos!", "", JOptionPane.ERROR_MESSAGE);
-            btn_entrar.setBorder(BorderFactory.createLineBorder(Color.RED)); //gambiarra melhorar essa borda
+            btn_entrar.setBorder(BorderFactory.createLineBorder(Color.RED));
         }
     }
 

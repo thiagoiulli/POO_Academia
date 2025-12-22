@@ -4,6 +4,12 @@
  */
 package visao;
 
+import controle.Gerenciamento;
+
+import javax.swing.*;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+
 /**
  *
  * @author natha
@@ -11,11 +17,13 @@ package visao;
 public class JanelaPerfil extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JanelaPerfil.class.getName());
+    private final Gerenciamento gerenciamento;
 
     /**
      * Creates new form JanelaPerfil
      */
-    public JanelaPerfil() {
+    public JanelaPerfil(Gerenciamento gerenciamento) {
+        this.gerenciamento = gerenciamento;
         initComponents();
     }
 
@@ -41,9 +49,9 @@ public class JanelaPerfil extends javax.swing.JFrame {
         txtF_telefone = new javax.swing.JTextField();
         txtF_nome = new javax.swing.JTextField();
         txt_senhaPerfil = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtF_senha = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
         txt_titlePerfil.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txt_titlePerfil.setText("Meu Perfil");
@@ -136,8 +144,15 @@ public class JanelaPerfil extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.setEditable(false);
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtF_senha.setEditable(false);
+        txtF_senha.setEchoChar('*');
+        txtF_senha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        txtF_usuario.setText(gerenciamento.getUsuarioLogado().getUsuario());
+        txtF_email.setText(gerenciamento.getUsuarioLogado().getEmail());
+        txtF_nome.setText(gerenciamento.getUsuarioLogado().getNome());
+        txtF_telefone.setText(gerenciamento.getUsuarioLogado().getTelefone());
+        txtF_senha.setText("12345678");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -163,7 +178,7 @@ public class JanelaPerfil extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtF_telefone, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1))))
+                            .addComponent(txtF_senha))))
                 .addContainerGap(50, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -201,7 +216,7 @@ public class JanelaPerfil extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_senhaPerfil)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtF_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_alterar)
@@ -220,7 +235,10 @@ public class JanelaPerfil extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        javax.swing.SwingUtilities.invokeLater(() -> jPanel1.requestFocusInWindow());
+
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_usuarioPerfilAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txt_usuarioPerfilAncestorAdded
@@ -241,6 +259,45 @@ public class JanelaPerfil extends javax.swing.JFrame {
 
     private void btn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterarActionPerformed
         // TODO add your handling code here:
+        String face = ((JButton)evt.getSource()).getText();
+        if (face.equals("Alterar")) {
+            // Deixar os texts fields editaveis para alteracao
+            txtF_nome.setEditable(true);
+            txtF_email.setEditable(true);
+            txtF_telefone.setEditable(true);
+            txtF_senha.setEditable(true);
+            txtF_senha.setText("");
+
+            // Mudar a face do botao para Salvar
+            btn_alterar.setText("Salvar");
+
+        } else {
+            // Deixar os texts fields nao editaveis
+            txtF_nome.setEditable(false);
+            txtF_email.setEditable(false);
+            txtF_telefone.setEditable(false);
+            txtF_senha.setEditable(false);
+
+            try {
+                char[] pwdChars = txtF_senha.getPassword();
+                String pwd = (pwdChars == null) ? "" : new String(pwdChars);
+                if (pwd.isBlank()){
+                    gerenciamento.alterarPessoa(txtF_nome.getText(), txtF_email.getText(), txtF_telefone.getText(), pwd);
+                }
+                else{
+                    gerenciamento.alterarPessoa(txtF_nome.getText(), txtF_email.getText(), txtF_telefone.getText(), Arrays.toString(txtF_senha.getPassword()));
+                }
+            }
+            catch (NoSuchAlgorithmException e){
+                JOptionPane.showMessageDialog(getParent(), "Erro alterando usuário!", "", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // Mudar a face do botao para Alterar
+            btn_alterar.setText("Alterar");
+
+            // Mensagem de confirmacao da alteracao
+            JOptionPane.showMessageDialog(this, "Perfil Alterado com Sucesso", "Alteracao", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btn_alterarActionPerformed
 
     private void btn_voltarPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarPerfilActionPerformed
@@ -256,7 +313,7 @@ public class JanelaPerfil extends javax.swing.JFrame {
     private javax.swing.JButton btn_alterar;
     private javax.swing.JButton btn_voltarPerfil;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField txtF_senha;
     private javax.swing.JTextField txtF_email;
     private javax.swing.JTextField txtF_nome;
     private javax.swing.JTextField txtF_telefone;

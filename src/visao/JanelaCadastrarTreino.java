@@ -6,6 +6,8 @@ package visao;
 
 import controle.Gerenciamento;
 
+import javax.swing.*;
+
 /**
  *
  * @author natha
@@ -49,7 +51,7 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
         cb_quantTriceps = new javax.swing.JComboBox<>();
         cb_quantQuadricpes = new javax.swing.JComboBox<>();
         cb_quantBiceps = new javax.swing.JComboBox<>();
-        cb_quantGlueto = new javax.swing.JComboBox<>();
+        cb_quantGluteo = new javax.swing.JComboBox<>();
         cb_quantPanturrilha = new javax.swing.JComboBox<>();
         cb_quantAerobico = new javax.swing.JComboBox<>();
         txt_dificuldadeExercicio = new javax.swing.JLabel();
@@ -64,7 +66,7 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
         btn_gerar = new javax.swing.JButton();
         btn_voltarGerarTreino = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
         txt_titleCadastrarTreino.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txt_titleCadastrarTreino.setText("Cadastrar Treino");
@@ -107,6 +109,11 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
 
         chkBox_peito.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         chkBox_peito.setText("Peito");
+        chkBox_peito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkBox_peitoActionPerformed(evt);
+            }
+        });
 
         chkBox_biceps.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         chkBox_biceps.setText("Bíceps");
@@ -172,9 +179,9 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
         cb_quantBiceps.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
         cb_quantBiceps.setEnabled(false);
 
-        cb_quantGlueto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cb_quantGlueto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
-        cb_quantGlueto.setEnabled(false);
+        cb_quantGluteo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cb_quantGluteo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        cb_quantGluteo.setEnabled(false);
 
         cb_quantPanturrilha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cb_quantPanturrilha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
@@ -281,7 +288,7 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cb_difPanturrilha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(cb_quantGlueto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cb_quantGluteo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cb_difGluteo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -354,7 +361,7 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chkBox_glueto)
-                    .addComponent(cb_quantGlueto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_quantGluteo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cb_difGluteo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -386,6 +393,7 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_tipoExercicioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txt_tipoExercicioAncestorAdded
@@ -396,32 +404,100 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_quantidadeExercicioAncestorAdded
 
+    private void chkBox_peitoActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        if (chkBox_peito.isSelected()) {
+            this.cb_difPeito.setEnabled(true);
+            this.cb_quantPeito.setEnabled(true);
+        }
+        else{
+            this.cb_difPeito.setEnabled(false);
+            this.cb_quantPeito.setEnabled(false);
+        }
+    }
+
     private void chkBox_costasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBox_costasActionPerformed
         // TODO add your handling code here:
+        if (chkBox_costas.isSelected()) {
+            this.cb_difCostas.setEnabled(true);
+            this.cb_quantCostas.setEnabled(true);
+        }
+        else{
+            this.cb_difCostas.setEnabled(false);
+            this.cb_quantCostas.setEnabled(false);
+        }
     }//GEN-LAST:event_chkBox_costasActionPerformed
 
     private void chkBox_bicepsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBox_bicepsActionPerformed
         // TODO add your handling code here:
+        if (chkBox_biceps.isSelected()) {
+            this.cb_difBiceps.setEnabled(true);
+            this.cb_quantBiceps.setEnabled(true);
+        }
+        else{
+            this.cb_difBiceps.setEnabled(false);
+            this.cb_quantBiceps.setEnabled(false);
+        }
     }//GEN-LAST:event_chkBox_bicepsActionPerformed
 
     private void chkBox_tricepsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBox_tricepsActionPerformed
         // TODO add your handling code here:
+        if (chkBox_triceps.isSelected()) {
+            this.cb_difTriceps.setEnabled(true);
+            this.cb_quantTriceps.setEnabled(true);
+        }
+        else{
+            this.cb_difTriceps.setEnabled(false);
+            this.cb_quantTriceps.setEnabled(false);
+        }
     }//GEN-LAST:event_chkBox_tricepsActionPerformed
 
     private void chkBox_quadricepsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBox_quadricepsActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:\
+        if (chkBox_quadriceps.isSelected()) {
+            this.cb_difQuadriceps.setEnabled(true);
+            this.cb_quantQuadricpes.setEnabled(true);
+        }
+        else{
+            this.cb_difQuadriceps.setEnabled(false);
+            this.cb_quantQuadricpes.setEnabled(false);
+        }
     }//GEN-LAST:event_chkBox_quadricepsActionPerformed
 
     private void chkBox_panturrilhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBox_panturrilhaActionPerformed
         // TODO add your handling code here:
+        if (chkBox_panturrilha.isSelected()) {
+            this.cb_difPanturrilha.setEnabled(true);
+            this.cb_quantPanturrilha.setEnabled(true);
+        }
+        else{
+            this.cb_difPanturrilha.setEnabled(false);
+            this.cb_quantPanturrilha.setEnabled(false);
+        }
     }//GEN-LAST:event_chkBox_panturrilhaActionPerformed
 
     private void chkBox_gluetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBox_gluetoActionPerformed
         // TODO add your handling code here:
+        if (chkBox_glueto.isSelected()) {
+            this.cb_difGluteo.setEnabled(true);
+            this.cb_quantGluteo.setEnabled(true);
+        }
+        else{
+            this.cb_difGluteo.setEnabled(false);
+            this.cb_quantGluteo.setEnabled(false);
+        }
     }//GEN-LAST:event_chkBox_gluetoActionPerformed
 
     private void chkBox_aerobicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBox_aerobicoActionPerformed
         // TODO add your handling code here:
+        if (chkBox_aerobico.isSelected()) {
+            this.cb_difAerobico.setEnabled(true);
+            this.cb_quantAerobico.setEnabled(true);
+        }
+        else{
+            this.cb_difAerobico.setEnabled(false);
+            this.cb_quantAerobico.setEnabled(false);
+        }
     }//GEN-LAST:event_chkBox_aerobicoActionPerformed
 
     private void txt_dificuldadeExercicioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txt_dificuldadeExercicioAncestorAdded
@@ -455,7 +531,7 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_quantAerobico;
     private javax.swing.JComboBox<String> cb_quantBiceps;
     private javax.swing.JComboBox<String> cb_quantCostas;
-    private javax.swing.JComboBox<String> cb_quantGlueto;
+    private javax.swing.JComboBox<String> cb_quantGluteo;
     private javax.swing.JComboBox<String> cb_quantPanturrilha;
     private javax.swing.JComboBox<String> cb_quantPeito;
     private javax.swing.JComboBox<String> cb_quantQuadricpes;
