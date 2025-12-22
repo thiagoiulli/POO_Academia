@@ -77,15 +77,10 @@ public class ManArqTxt {
 
     public void gravarLogin(String usuario, String nome, String email, String telefone, String senha) {
         abrirArquivoGravacaoLogin();
-        if (!usuarioJaExiste(usuario)){
-            try{
-                gravador_login.format("%s;%s;%s;%s;%s\n", usuario, nome, email, telefone, senha);
-            } catch (Exception e) {
-                System.err.println("Erro ao gravar arquivo de login: " + e.getMessage());
-            }
-        }
-        else{
-            //tem que atualizar o usuario
+        try{
+            gravador_login.format("%s;%s;%s;%s;%s\n", usuario, nome, email, telefone, senha);
+        } catch (Exception e) {
+            System.err.println("Erro ao gravar arquivo de login: " + e.getMessage());
         }
         fecharArquivoGravacaoLogin();
     }
