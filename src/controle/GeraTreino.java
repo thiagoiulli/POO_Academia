@@ -7,7 +7,7 @@ import java.util.Random;
 public class GeraTreino {
     Random gerador = new Random();
 
-    public Aerobico geraraerobico(int n, int dificuldade){
+    public Aerobico gerarAerobico(int n, int dificuldade){
         Aerobico[] aerobicos;
         ArrayList<String> nomes = new ArrayList<>();
         nomes.add("Corrida");
@@ -45,5 +45,9 @@ public class GeraTreino {
                 break;
         }
         return null;
+    }
+
+    public void gerarPeito(int n, int dificuldade) {
+
     }
 }

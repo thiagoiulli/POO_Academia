@@ -22,7 +22,7 @@ public class Gerenciamento {
         ArrayList<Pessoa> tmp = manipulartxt.leituraInicial();
         if (tmp != null){
             for (int i = 0; i < tmp.size(); i++){
-                usuarios.add(tmp.get(0));
+                usuarios.add(tmp.get(i));
             }
         }
     }
@@ -48,7 +48,7 @@ public class Gerenciamento {
         usuarios.get(usuario_logado).setEmail(email);
         usuarios.get(usuario_logado).setNome(nome);
         usuarios.get(usuario_logado).setTelefone(telefone);
-        System.out.println(usuarios.get(usuario_logado).getSenha());
+//        System.out.println(usuarios.get(usuario_logado).getSenha());
         if (!senha.isBlank()){
             String hashSenha;
             try{
@@ -59,8 +59,12 @@ public class Gerenciamento {
                 throw e;
             }
             usuarios.get(usuario_logado).setSenha(hashSenha);
+            manipulartxt.alterarCadastro(usuarios.get(usuario_logado).getUsuario(), nome, email, telefone, hashSenha);
         }
-        System.out.println(usuarios.get(usuario_logado).getSenha());
+        else{
+            manipulartxt.alterarCadastro(usuarios.get(usuario_logado).getUsuario(), nome, email, telefone, null);
+        }
+//        System.out.println(usuarios.get(usuario_logado).getSenha());
     }
 
     private int pesquisarUsuario(String usuario){

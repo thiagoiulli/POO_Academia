@@ -14,6 +14,7 @@ public class ManArqTxt {
     private String arquivo_login;
     private Formatter gravador_login;
     private Scanner leitor_login;
+    private Formatter gravador_editor;
 
     public ManArqTxt() {
         arquivo_login = "src/arquivos/login.txt";
@@ -50,29 +51,62 @@ public class ManArqTxt {
         }
     }
 
+    public void abrirArquivoEditor(){
+        try{
+            gravador_editor = new Formatter(new FileWriter(arquivo_login, false));
+        } catch (IOException e) {
+            System.err.println("Não foi possivel criar/abrir o arquivo " + arquivo_login);
+            gravador_editor = null;
+        }
+    }
+
+    public void fecharArquivoEditor(){
+        if (gravador_editor != null){
+            gravador_editor.close();
+        }
+    }
+
     // Metodos para Login
 
-    public boolean usuarioJaExiste(String usuarioProcurado) {
+    public void alterarCadastro(String usuario, String nome, String email, String telefone, String senha){
         abrirArquivoLeituraLogin();
-        if (leitor_login == null) {
-            return false;
-        }
-        try {
-            while (leitor_login.hasNextLine()) {
+        String hashAntigo = "";
+        ArrayList<String> dados = new ArrayList<>();
+        try{
+            while(leitor_login.hasNextLine()){
                 String linha = leitor_login.nextLine();
-                String[] dados = linha.split(";");
-
-                if (dados.length > 0 && dados[0].equalsIgnoreCase(usuarioProcurado)) {
-                    fecharArquivoLeituraLogin();
-                    return true;
+                String[] itens = linha.split(";");
+                if (!itens[0].equals(usuario)){
+                    dados.add(linha);
+                }
+                else{
+                    hashAntigo = itens[4];
                 }
             }
         } catch (Exception e) {
-            System.err.println("Erro ao ler o arquivo para verificação.");
-        } finally {
+            System.err.println("Nao foi possivel abrir o arquivo " + arquivo_login);
+            return;
+        }
+        finally {
             fecharArquivoLeituraLogin();
         }
-        return false;
+        abrirArquivoEditor();
+        try{
+            for (int i = 0; i < dados.size(); i++){
+                gravador_editor.format("%s\n", dados.get(i).trim());
+            }
+            if(senha == null){
+                gravador_editor.format("%s;%s;%s;%s;%s\n", usuario, nome, email, telefone, hashAntigo.trim());
+            }
+            else{
+                gravador_editor.format("%s;%s;%s;%s;%s\n", usuario, nome, email, telefone, senha);
+            }
+        } catch (Exception e) {
+            System.err.println("Não foi possivel criar/abrir o arquivo " + arquivo_login);
+        }
+        finally {
+            fecharArquivoEditor();
+        }
     }
 
     public void gravarLogin(String usuario, String nome, String email, String telefone, String senha) {
@@ -94,7 +128,7 @@ public class ManArqTxt {
                 String[] dados = linha.split(";");
 
                 if (dados.length == 0){
-                    return null;
+                    break;
                 }
 
                 if (dados.length >= 5) {
@@ -103,7 +137,7 @@ public class ManArqTxt {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Erro ao ler arquivo para login: " + e.getMessage());
+            System.err.println("Não foi possivel criar/abrir o arquivo " + arquivo_login);
         } finally {
             fecharArquivoLeituraLogin();
         }
