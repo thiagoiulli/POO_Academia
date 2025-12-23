@@ -8,7 +8,6 @@ import controle.Gerenciamento;
 import exceptions.UsuarioExistente;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
