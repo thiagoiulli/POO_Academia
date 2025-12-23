@@ -5,6 +5,7 @@
 package visao;
 
 import controle.Gerenciamento;
+import exceptions.LeituraEscritaException;
 
 import javax.swing.*;
 import java.security.NoSuchAlgorithmException;
@@ -290,6 +291,9 @@ public class JanelaPerfil extends javax.swing.JFrame {
             }
             catch (NoSuchAlgorithmException e){
                 JOptionPane.showMessageDialog(getParent(), "Erro alterando usuário!", "", JOptionPane.ERROR_MESSAGE);
+            }
+            catch (LeituraEscritaException e){
+                JOptionPane.showMessageDialog(getParent(), "Erro salvando usuário!", "", JOptionPane.ERROR_MESSAGE);
             }
 
             // Mudar a face do botao para Alterar

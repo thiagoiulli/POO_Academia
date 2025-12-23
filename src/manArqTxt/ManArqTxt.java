@@ -1,5 +1,6 @@
 package manArqTxt;
 
+import exceptions.LeituraEscritaException;
 import principal.Pessoa;
 
 import java.io.File;
@@ -22,12 +23,12 @@ public class ManArqTxt {
 
     // Metodos para abrir e fechar os arquivos
 
-    public void abrirArquivoGravacaoLogin(){
+    public void abrirArquivoGravacaoLogin() throws LeituraEscritaException{
         try{
             gravador_login = new Formatter(new FileWriter(arquivo_login, true));
         } catch (IOException e) {
-            System.err.println("Não foi possivel criar/abrir o arquivo " + arquivo_login);
             gravador_login = null;
+            throw new LeituraEscritaException("erro abrindo arquivo!");
         }
     }
 
@@ -37,11 +38,11 @@ public class ManArqTxt {
         }
     }
 
-    public void abrirArquivoLeituraLogin(){
+    public void abrirArquivoLeituraLogin() throws LeituraEscritaException{
         try{
             leitor_login = new Scanner(new File(arquivo_login));
         } catch (FileNotFoundException e) {
-            System.err.println("Nao foi possivel abrir o arquivo " + arquivo_login);
+            throw new LeituraEscritaException("erro abrindo arquivo!");
         }
     }
 
@@ -51,12 +52,12 @@ public class ManArqTxt {
         }
     }
 
-    public void abrirArquivoEditor(){
+    public void abrirArquivoEditor() throws LeituraEscritaException{
         try{
             gravador_editor = new Formatter(new FileWriter(arquivo_login, false));
         } catch (IOException e) {
-            System.err.println("Não foi possivel criar/abrir o arquivo " + arquivo_login);
             gravador_editor = null;
+            throw new LeituraEscritaException("erro abrindo arquivo!");
         }
     }
 
@@ -68,8 +69,12 @@ public class ManArqTxt {
 
     // Metodos para Login
 
-    public void alterarCadastro(String usuario, String nome, String email, String telefone, String senha){
-        abrirArquivoLeituraLogin();
+    public void alterarCadastro(String usuario, String nome, String email, String telefone, String senha) throws LeituraEscritaException{
+        try{
+            abrirArquivoLeituraLogin();
+        } catch (LeituraEscritaException e) {
+            throw e;
+        }
         String hashAntigo = "";
         ArrayList<String> dados = new ArrayList<>();
         try{
@@ -84,14 +89,13 @@ public class ManArqTxt {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Nao foi possivel abrir o arquivo " + arquivo_login);
-            return;
+            throw new LeituraEscritaException("erro abrindo arquivo!");
         }
         finally {
             fecharArquivoLeituraLogin();
         }
-        abrirArquivoEditor();
         try{
+            abrirArquivoEditor();
             for (int i = 0; i < dados.size(); i++){
                 gravador_editor.format("%s\n", dados.get(i).trim());
             }
@@ -102,27 +106,27 @@ public class ManArqTxt {
                 gravador_editor.format("%s;%s;%s;%s;%s\n", usuario, nome, email, telefone, senha);
             }
         } catch (Exception e) {
-            System.err.println("Não foi possivel criar/abrir o arquivo " + arquivo_login);
+            throw new LeituraEscritaException("erro abrindo arquivo!");
         }
         finally {
             fecharArquivoEditor();
         }
     }
 
-    public void gravarLogin(String usuario, String nome, String email, String telefone, String senha) {
-        abrirArquivoGravacaoLogin();
+    public void gravarLogin(String usuario, String nome, String email, String telefone, String senha) throws LeituraEscritaException {
         try{
+            abrirArquivoGravacaoLogin();
             gravador_login.format("%s;%s;%s;%s;%s\n", usuario, nome, email, telefone, senha);
         } catch (Exception e) {
-            System.err.println("Erro ao gravar arquivo de login: " + e.getMessage());
+            throw new LeituraEscritaException("erro abrindo arquivo!");
         }
         fecharArquivoGravacaoLogin();
     }
 
-    public ArrayList<Pessoa> leituraInicial(){
-        abrirArquivoLeituraLogin();
+    public ArrayList<Pessoa> leituraInicial() throws LeituraEscritaException{
         ArrayList<Pessoa> usuarios = new ArrayList<>();
         try {
+            abrirArquivoLeituraLogin();
             while (leitor_login.hasNextLine()) {
                 String linha = leitor_login.nextLine();
                 String[] dados = linha.split(";");
@@ -137,7 +141,7 @@ public class ManArqTxt {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Não foi possivel criar/abrir o arquivo " + arquivo_login);
+            throw new LeituraEscritaException("erro abrindo arquivo!");
         } finally {
             fecharArquivoLeituraLogin();
         }

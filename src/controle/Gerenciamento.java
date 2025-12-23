@@ -1,7 +1,8 @@
 package controle;
 
-import exceptions.UsuarioExistente;
-import exceptions.UsuarioOuSenhaIncorretos;
+import exceptions.LeituraEscritaException;
+import exceptions.UsuarioExistenteException;
+import exceptions.UsuarioOuSenhaIncorretosException;
 import manArqTxt.ManArqTxt;
 import principal.Aerobico;
 import principal.Anaerobico;
@@ -23,7 +24,12 @@ public class Gerenciamento {
         usuarios = new ArrayList<>();
         this.usuario_logado = -1;
         this.manipulartxt = manipulartxt;
-        ArrayList<Pessoa> tmp = manipulartxt.leituraInicial();
+        ArrayList<Pessoa> tmp = null;
+        try {
+            tmp = manipulartxt.leituraInicial();
+        } catch (LeituraEscritaException e) {
+            System.err.println("Não foi possível carregar arquivo com salvamento!");
+        }
         if (tmp != null){
             usuarios.addAll(tmp);
         }
@@ -31,9 +37,9 @@ public class Gerenciamento {
         geratreino = new GeraTreino();
     }
 
-    public void CadastrarPessoa(String usuario, String nome, String email, String telefone, String senha) throws UsuarioExistente, NoSuchAlgorithmException {
+    public void CadastrarPessoa(String usuario, String nome, String email, String telefone, String senha) throws UsuarioExistenteException, NoSuchAlgorithmException, LeituraEscritaException {
         if (pesquisarUsuario(usuario) != -1){
-            throw new UsuarioExistente("Nome de usuário em uso");
+            throw new UsuarioExistenteException("Nome de usuário em uso");
         }
         String hashSenha;
         try{
@@ -45,10 +51,14 @@ public class Gerenciamento {
         }
         Pessoa p = new Pessoa(usuario, nome, email, telefone, hashSenha);
         usuarios.add(p);
-        manipulartxt.gravarLogin(usuario, nome, email, telefone, hashSenha);
+        try {
+            manipulartxt.gravarLogin(usuario, nome, email, telefone, hashSenha);
+        } catch (LeituraEscritaException e) {
+            throw e;
+        }
     }
 
-    public void alterarPessoa(String nome, String email, String telefone, String senha) throws NoSuchAlgorithmException{
+    public void alterarPessoa(String nome, String email, String telefone, String senha) throws NoSuchAlgorithmException, LeituraEscritaException{
         usuarios.get(usuario_logado).setEmail(email);
         usuarios.get(usuario_logado).setNome(nome);
         usuarios.get(usuario_logado).setTelefone(telefone);
@@ -63,10 +73,18 @@ public class Gerenciamento {
                 throw e;
             }
             usuarios.get(usuario_logado).setSenha(hashSenha);
-            manipulartxt.alterarCadastro(usuarios.get(usuario_logado).getUsuario(), nome, email, telefone, hashSenha);
+            try {
+                manipulartxt.alterarCadastro(usuarios.get(usuario_logado).getUsuario(), nome, email, telefone, hashSenha);
+            } catch (LeituraEscritaException e) {
+                throw e;
+            }
         }
         else{
-            manipulartxt.alterarCadastro(usuarios.get(usuario_logado).getUsuario(), nome, email, telefone, null);
+            try{
+                manipulartxt.alterarCadastro(usuarios.get(usuario_logado).getUsuario(), nome, email, telefone, null);
+            } catch (LeituraEscritaException e) {
+                throw e;
+            }
         }
 //        System.out.println(usuarios.get(usuario_logado).getSenha());
     }
@@ -80,10 +98,10 @@ public class Gerenciamento {
         return -1;
     }
 
-    public boolean parseLogin(String usuario, String senha) throws UsuarioOuSenhaIncorretos, NoSuchAlgorithmException {
+    public boolean parseLogin(String usuario, String senha) throws UsuarioOuSenhaIncorretosException, NoSuchAlgorithmException {
         int i;
         if ((i = pesquisarUsuario(usuario)) == -1){
-            throw new UsuarioOuSenhaIncorretos("Usuário ou senha incorretos!");
+            throw new UsuarioOuSenhaIncorretosException("Usuário ou senha incorretos!");
         }
         String hashSenha;
         try{
@@ -97,7 +115,7 @@ public class Gerenciamento {
             return true;
         }
         else{
-            throw new UsuarioOuSenhaIncorretos("Usuário ou senha incorretos!");
+            throw new UsuarioOuSenhaIncorretosException("Usuário ou senha incorretos!");
         }
     }
 

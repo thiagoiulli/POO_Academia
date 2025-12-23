@@ -5,7 +5,8 @@
 package visao;
 
 import controle.Gerenciamento;
-import exceptions.UsuarioExistente;
+import exceptions.LeituraEscritaException;
+import exceptions.UsuarioExistenteException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -281,9 +282,12 @@ public class JanelaCadastro extends javax.swing.JFrame {
             catch(NoSuchAlgorithmException e){
                 JOptionPane.showMessageDialog(getParent(), "Erro criando usuário!", "", JOptionPane.ERROR_MESSAGE);
             }
-            catch (UsuarioExistente e){
+            catch (UsuarioExistenteException e){
                 JOptionPane.showMessageDialog(getParent(), "Nome de usuário ja existe!", "", JOptionPane.ERROR_MESSAGE);
                 txtF_usuarioCadastro.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+            catch (LeituraEscritaException e){
+                JOptionPane.showMessageDialog(getParent(), "Erro salvando usuário!", "", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btn_cadastrarActionPerformed

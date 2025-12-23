@@ -5,7 +5,7 @@
 package visao;
 
 import controle.Gerenciamento;
-import exceptions.UsuarioOuSenhaIncorretos;
+import exceptions.UsuarioOuSenhaIncorretosException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -213,7 +213,7 @@ public class JanelaLogin extends javax.swing.JFrame {
             }
         } catch (NoSuchAlgorithmException e) {
             JOptionPane.showMessageDialog(getParent(), "Erro fazendo login!", "", JOptionPane.ERROR_MESSAGE);
-        } catch (UsuarioOuSenhaIncorretos e) {
+        } catch (UsuarioOuSenhaIncorretosException e) {
             JOptionPane.showMessageDialog(getParent(), "Usuario ou senha incorretos!", "", JOptionPane.ERROR_MESSAGE);
             btn_entrar.setBorder(BorderFactory.createLineBorder(Color.RED));
         }
