@@ -3,17 +3,21 @@ package controle;
 import exceptions.UsuarioExistente;
 import exceptions.UsuarioOuSenhaIncorretos;
 import manArqTxt.ManArqTxt;
+import principal.Aerobico;
+import principal.Anaerobico;
 import principal.Pessoa;
 
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.security.MessageDigest;
+import java.util.HashMap;
 
 public class Gerenciamento {
     ArrayList<Pessoa> usuarios;
     int usuario_logado;
     ManArqTxt manipulartxt;
+    GeraTreino geratreino;
 
     public Gerenciamento(ManArqTxt manipulartxt){
         usuarios = new ArrayList<>();
@@ -21,10 +25,10 @@ public class Gerenciamento {
         this.manipulartxt = manipulartxt;
         ArrayList<Pessoa> tmp = manipulartxt.leituraInicial();
         if (tmp != null){
-            for (int i = 0; i < tmp.size(); i++){
-                usuarios.add(tmp.get(i));
-            }
+            usuarios.addAll(tmp);
         }
+
+        geratreino = new GeraTreino();
     }
 
     public void CadastrarPessoa(String usuario, String nome, String email, String telefone, String senha) throws UsuarioExistente, NoSuchAlgorithmException {
@@ -120,5 +124,24 @@ public class Gerenciamento {
 
     public Pessoa getUsuarioLogado(){
         return usuarios.get(this.usuario_logado);
+    }
+
+    public void gerarTreino(HashMap<Anaerobico.tipo, ArrayList<String>> formulario, ArrayList<String> formulario_aerobico){
+        Ficha ficha = new Ficha();
+        for (Anaerobico.tipo e : formulario.keySet()){
+            Anaerobico[] anaerobicos = GeraTreino.gerarAnaerobico(Integer.parseInt(formulario.get(e).get(0)), formulario.get(e).get(1), e);
+            for (int i = 0; i < anaerobicos.length; i++){
+                ficha.adicionarExercicio(anaerobicos[i]);
+            }
+        }
+        if (formulario_aerobico != null){
+            Aerobico[] aerobicos = GeraTreino.gerarAerobico(Integer.parseInt(formulario_aerobico.get(0)), formulario_aerobico.get(1));
+            for (int i = 0; i < aerobicos.length; i++){
+                ficha.adicionarExercicio(aerobicos[i]);
+            }
+        }
+
+        usuarios.get(usuario_logado).setFicha(ficha);
+        usuarios.get(usuario_logado).getFicha();
     }
 }

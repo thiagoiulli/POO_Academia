@@ -5,8 +5,11 @@
 package visao;
 
 import controle.Gerenciamento;
+import principal.Anaerobico;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -45,7 +48,7 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
         chkBox_triceps = new javax.swing.JCheckBox();
         chkBox_quadriceps = new javax.swing.JCheckBox();
         chkBox_panturrilha = new javax.swing.JCheckBox();
-        chkBox_glueto = new javax.swing.JCheckBox();
+        chkBox_gluteo = new javax.swing.JCheckBox();
         chkBox_aerobico = new javax.swing.JCheckBox();
         cb_quantCostas = new javax.swing.JComboBox<>();
         cb_quantTriceps = new javax.swing.JComboBox<>();
@@ -147,9 +150,9 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
             }
         });
 
-        chkBox_glueto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        chkBox_glueto.setText("Glúteo");
-        chkBox_glueto.addActionListener(new java.awt.event.ActionListener() {
+        chkBox_gluteo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        chkBox_gluteo.setText("Glúteo");
+        chkBox_gluteo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkBox_gluetoActionPerformed(evt);
             }
@@ -266,7 +269,7 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
                                 .addComponent(chkBox_triceps)
                                 .addComponent(chkBox_quadriceps)
                                 .addComponent(chkBox_panturrilha)
-                                .addComponent(chkBox_glueto)
+                                .addComponent(chkBox_gluteo)
                                 .addComponent(chkBox_aerobico)
                                 .addComponent(chkBox_costas))
                             .addComponent(txt_tipoExercicio))
@@ -360,7 +363,7 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
                     .addComponent(cb_difQuadriceps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkBox_glueto)
+                    .addComponent(chkBox_gluteo)
                     .addComponent(cb_quantGluteo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cb_difGluteo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -478,7 +481,7 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
 
     private void chkBox_gluetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBox_gluetoActionPerformed
         // TODO add your handling code here:
-        if (chkBox_glueto.isSelected()) {
+        if (chkBox_gluteo.isSelected()) {
             this.cb_difGluteo.setEnabled(true);
             this.cb_quantGluteo.setEnabled(true);
         }
@@ -506,6 +509,52 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
 
     private void btn_gerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_gerarActionPerformed
         // TODO add your handling code here:
+        HashMap<Anaerobico.tipo, ArrayList<String>> formulario = new HashMap<>();
+        if (chkBox_peito.isSelected()){
+            formulario.put(Anaerobico.tipo.PEITO, new ArrayList<>());
+            formulario.get(Anaerobico.tipo.PEITO).add(cb_quantPeito.getSelectedItem().toString());
+            formulario.get(Anaerobico.tipo.PEITO).add(cb_difPeito.getSelectedItem().toString());
+        }
+        if(chkBox_costas.isSelected()){
+            formulario.put(Anaerobico.tipo.COSTAS, new ArrayList<>());
+            formulario.get(Anaerobico.tipo.COSTAS).add(cb_quantCostas.getSelectedItem().toString());
+            formulario.get(Anaerobico.tipo.COSTAS).add(cb_difCostas.getSelectedItem().toString());
+        }
+        if(chkBox_biceps.isSelected()){
+            formulario.put(Anaerobico.tipo.BICEPS, new ArrayList<>());
+            formulario.get(Anaerobico.tipo.BICEPS).add(cb_quantBiceps.getSelectedItem().toString());
+            formulario.get(Anaerobico.tipo.BICEPS).add(cb_difBiceps.getSelectedItem().toString());
+        }
+        if(chkBox_triceps.isSelected()){
+            formulario.put(Anaerobico.tipo.TRICEPS, new ArrayList<>());
+            formulario.get(Anaerobico.tipo.TRICEPS).add(cb_quantTriceps.getSelectedItem().toString());
+            formulario.get(Anaerobico.tipo.TRICEPS).add(cb_difTriceps.getSelectedItem().toString());
+        }
+        if(chkBox_quadriceps.isSelected()){
+            formulario.put(Anaerobico.tipo.QUADRICEPS, new ArrayList<>());
+            formulario.get(Anaerobico.tipo.QUADRICEPS).add(cb_quantQuadricpes.getSelectedItem().toString());
+            formulario.get(Anaerobico.tipo.QUADRICEPS).add(cb_difQuadriceps.getSelectedItem().toString());
+        }
+        if(chkBox_gluteo.isSelected()){
+            formulario.put(Anaerobico.tipo.GLUTEO, new ArrayList<>());
+            formulario.get(Anaerobico.tipo.GLUTEO).add(cb_quantGluteo.getSelectedItem().toString());
+            formulario.get(Anaerobico.tipo.GLUTEO).add(cb_difGluteo.getSelectedItem().toString());
+        }
+        if(chkBox_panturrilha.isSelected()){
+            formulario.put(Anaerobico.tipo.PANTURRILHA, new ArrayList<>());
+            formulario.get(Anaerobico.tipo.PANTURRILHA).add(cb_quantPanturrilha.getSelectedItem().toString());
+            formulario.get(Anaerobico.tipo.PANTURRILHA).add(cb_difPanturrilha.getSelectedItem().toString());
+        }
+
+        if(chkBox_aerobico.isSelected()){
+            ArrayList<String> formulario_aerobico = new ArrayList<>();
+            formulario_aerobico.add(cb_quantAerobico.getSelectedItem().toString());
+            formulario_aerobico.add(cb_difAerobico.getSelectedItem().toString());
+            gerenciamento.gerarTreino(formulario, formulario_aerobico);
+        }
+        else{
+            gerenciamento.gerarTreino(formulario, null);
+        }
     }//GEN-LAST:event_btn_gerarActionPerformed
 
     private void btn_voltarGerarTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarGerarTreinoActionPerformed
@@ -539,7 +588,7 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkBox_aerobico;
     private javax.swing.JCheckBox chkBox_biceps;
     private javax.swing.JCheckBox chkBox_costas;
-    private javax.swing.JCheckBox chkBox_glueto;
+    private javax.swing.JCheckBox chkBox_gluteo;
     private javax.swing.JCheckBox chkBox_panturrilha;
     private javax.swing.JCheckBox chkBox_peito;
     private javax.swing.JCheckBox chkBox_quadriceps;

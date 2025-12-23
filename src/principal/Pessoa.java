@@ -32,10 +32,6 @@ public class Pessoa {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
     public String getNome() {
         return nome;
     }
