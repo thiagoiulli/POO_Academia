@@ -5,6 +5,7 @@
 package visao;
 
 import controle.Gerenciamento;
+import exceptions.LeituraEscritaException;
 import principal.Anaerobico;
 
 import javax.swing.*;
@@ -550,10 +551,22 @@ public class JanelaCadastrarTreino extends javax.swing.JFrame {
             ArrayList<String> formulario_aerobico = new ArrayList<>();
             formulario_aerobico.add(cb_quantAerobico.getSelectedItem().toString());
             formulario_aerobico.add(cb_difAerobico.getSelectedItem().toString());
-            gerenciamento.gerarTreino(formulario, formulario_aerobico);
+            try{
+                gerenciamento.gerarTreino(formulario, formulario_aerobico);
+                JOptionPane.showMessageDialog(getParent(), "Ficha criada com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
+                btn_voltarGerarTreino.doClick();
+            } catch (LeituraEscritaException e) {
+                JOptionPane.showMessageDialog(getParent(), "Erro salvando ficha!", "", JOptionPane.ERROR_MESSAGE);
+            }
         }
         else{
-            gerenciamento.gerarTreino(formulario, null);
+            try{
+                gerenciamento.gerarTreino(formulario, null);
+                JOptionPane.showMessageDialog(getParent(), "Ficha criada com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
+                btn_voltarGerarTreino.doClick();
+            } catch (LeituraEscritaException e) {
+                JOptionPane.showMessageDialog(getParent(), "Erro salvando ficha!", "", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btn_gerarActionPerformed
 

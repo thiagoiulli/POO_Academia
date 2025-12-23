@@ -5,11 +5,9 @@ import java.util.ArrayList;
 
 public class Ficha {
     private ArrayList<Exercicio> exercicios;
-    private String dataCreate;
     
     public Ficha() {
         this.exercicios = new ArrayList<>();
-        this.dataCreate = java.time.LocalDate.now().toString();
     }
     
     public void adicionarExercicio(Exercicio exercicio) {
@@ -52,15 +50,10 @@ public class Ficha {
                 .anyMatch(e -> e.getNome().equalsIgnoreCase(nomeExercicio));
     }
 
-    public String getDataCreate() {
-        return dataCreate;
-    }
-
     @Override
     public String toString() {
         return "Ficha{" +
                 "totalExercicios=" + exercicios.size() +
-                ", dataCriacao='" + dataCreate + '\'' +
                 '}';
     }
 }

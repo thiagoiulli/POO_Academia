@@ -1,6 +1,9 @@
 package controle;
 
 import exceptions.LeituraEscritaException;
+import principal.Aerobico;
+import principal.Anaerobico;
+import principal.Exercicio;
 import principal.Pessoa;
 
 import java.io.File;
@@ -135,12 +138,28 @@ public class ManArqTxt {
                     break;
                 }
 
-                if (dados.length >= 5) {
+                if (dados.length == 5) {
                     Pessoa p = new Pessoa(dados[0], dados[1], dados[2], dados[3], dados[4]);
                     usuarios.add(p);
                 }
+                else{
+                    Pessoa p = new Pessoa(dados[0], dados[1], dados[2], dados[3], dados[4]);
+                    Ficha f = new Ficha();
+                    for (int i = 5; i < dados.length; ){
+                        if(dados[i].equals("AEROBICO")){
+                            f.adicionarExercicio(new Aerobico(dados[i+1], Integer.parseInt(dados[i+2])));
+                            i = i+3;
+                        }
+                        else{
+                            f.adicionarExercicio(new Anaerobico(dados[i], Anaerobico.tipo.valueOf(dados[i+1]), Integer.parseInt(dados[i+2]), Integer.parseInt(dados[i+3]), Integer.parseInt(dados[i+4])));
+                            i = i+5;
+                        }
+                    }
+                    p.setFicha(f);
+                    usuarios.add(p);
+                }
             }
-        } catch (Exception e) {
+        } catch (LeituraEscritaException e) {
             throw new LeituraEscritaException("erro abrindo arquivo!");
         } finally {
             fecharArquivoLeituraLogin();
@@ -148,7 +167,57 @@ public class ManArqTxt {
         return usuarios;
     }
     
-    public void gravarFicha(String usuario, Ficha ficha){
-
+    public void gravarFicha(Pessoa usuario) throws LeituraEscritaException{
+        try{
+            abrirArquivoLeituraLogin();
+        } catch (LeituraEscritaException e) {
+            throw e;
+        }
+        ArrayList<String> dados = new ArrayList<>();
+        try{
+            while(leitor_login.hasNextLine()){
+                String linha = leitor_login.nextLine();
+                String[] itens = linha.split(";");
+                if (!itens[0].equals(usuario.getUsuario())){
+                    dados.add(linha);
+                }
+            }
+        } catch (Exception e) {
+            throw new LeituraEscritaException("erro abrindo arquivo!");
+        }
+        finally {
+            fecharArquivoLeituraLogin();
+        }
+        try{
+            abrirArquivoEditor();
+            for (int i = 0; i < dados.size(); i++){
+                gravador_editor.format("%s\n", dados.get(i).trim());
+            }
+            gravador_editor.format("%s;%s;%s;%s;%s;", usuario.getUsuario(), usuario.getNome(), usuario.getEmail(), usuario.getTelefone(), usuario.getSenha());
+            for (int i = 0; i < usuario.getFicha().totalExercicios(); i++){
+                if (i == usuario.getFicha().totalExercicios()-1){
+                    Exercicio e = usuario.getFicha().getExercicios().get(i);
+                    if (e.getClass() == Aerobico.class) {
+                        gravador_editor.format("%s;%s;%d", "AEROBICO", e.getNome(), ((Aerobico) e).getTempoMinutos());
+                    } else {
+                        gravador_editor.format("%s;%s;%d;%d;%d", e.getNome(), ((Anaerobico) e).getAtividade(), ((Anaerobico) e).getN_repeticoes(), ((Anaerobico) e).getN_series(), ((Anaerobico) e).getSugestaoDeCarga());
+                    }
+                    gravador_editor.format("\n");
+                }
+                else {
+                    Exercicio e = usuario.getFicha().getExercicios().get(i);
+                    if (e.getClass() == Aerobico.class) {
+                        gravador_editor.format("%s;%s;%d;", "AEROBICO", e.getNome(), ((Aerobico) e).getTempoMinutos());
+                    } else {
+                        gravador_editor.format("%s;%s;%d;%d;%d;", e.getNome(), ((Anaerobico) e).getAtividade(), ((Anaerobico) e).getN_repeticoes(), ((Anaerobico) e).getN_series(), ((Anaerobico) e).getSugestaoDeCarga());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new LeituraEscritaException("erro abrindo arquivo!");
+        }
+        finally {
+            fecharArquivoEditor();
+        }
     }
 }

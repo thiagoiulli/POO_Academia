@@ -6,10 +6,10 @@ public class Anaerobico extends Exercicio{
     
     private int n_repeticoes;
     private int n_series;
-    private float sugestaoDeCarga;
+    private int sugestaoDeCarga;
     private tipo atividade;
     
-    public Anaerobico(String nome, tipo atividade, int n_repeticoes, int n_series, float sugestaoDeCarga) {
+    public Anaerobico(String nome, tipo atividade, int n_repeticoes, int n_series, int sugestaoDeCarga) {
         super(nome);
         this.atividade = atividade;
         this.n_repeticoes = n_repeticoes;
@@ -41,11 +41,11 @@ public class Anaerobico extends Exercicio{
         this.n_series = n_series;
     }
 
-    public float getSugestaoDeCarga() {
+    public int getSugestaoDeCarga() {
         return sugestaoDeCarga;
     }
 
-    public void setSugestaoDeCarga(float sugestaoDeCarga) {
+    public void setSugestaoDeCarga(int sugestaoDeCarga) {
         this.sugestaoDeCarga = sugestaoDeCarga;
     }
 

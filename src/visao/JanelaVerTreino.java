@@ -6,6 +6,8 @@ package visao;
 
 import controle.Gerenciamento;
 
+import java.awt.*;
+
 /**
  *
  * @author natha
@@ -21,6 +23,7 @@ public class JanelaVerTreino extends javax.swing.JFrame {
     public JanelaVerTreino(Gerenciamento gerenciamento) {
         this.gerenciamento = gerenciamento;
         initComponents();
+        txtPane_treino.setText(gerenciamento.verTreino());
     }
 
     /**
@@ -51,7 +54,10 @@ public class JanelaVerTreino extends javax.swing.JFrame {
             }
         });
 
+        txtPane_treino.setFont(new Font("SansSerif", Font.BOLD, 18));
+        txtPane_treino.setForeground(Color.BLACK);
         jScrollPane1.setViewportView(txtPane_treino);
+        txtPane_treino.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

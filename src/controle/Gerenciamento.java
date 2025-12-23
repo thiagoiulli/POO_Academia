@@ -5,6 +5,7 @@ import exceptions.UsuarioExistenteException;
 import exceptions.UsuarioOuSenhaIncorretosException;
 import principal.Aerobico;
 import principal.Anaerobico;
+import principal.Exercicio;
 import principal.Pessoa;
 
 import java.nio.charset.StandardCharsets;
@@ -143,7 +144,7 @@ public class Gerenciamento {
         return usuarios.get(this.usuario_logado);
     }
 
-    public void gerarTreino(HashMap<Anaerobico.tipo, ArrayList<String>> formulario, ArrayList<String> formulario_aerobico){
+    public void gerarTreino(HashMap<Anaerobico.tipo, ArrayList<String>> formulario, ArrayList<String> formulario_aerobico) throws LeituraEscritaException{
         Ficha ficha = new Ficha();
         for (Anaerobico.tipo e : formulario.keySet()){
             Anaerobico[] anaerobicos = GeraTreino.gerarAnaerobico(Integer.parseInt(formulario.get(e).get(0)), formulario.get(e).get(1), e);
@@ -159,6 +160,26 @@ public class Gerenciamento {
         }
 
         usuarios.get(usuario_logado).setFicha(ficha);
-        usuarios.get(usuario_logado).getFicha();
+        try{
+            manipulartxt.gravarFicha(usuarios.get(usuario_logado));
+        } catch (LeituraEscritaException e) {
+            throw e;
+        }
+    }
+
+    public String verTreino() {
+        Pessoa usuarioAtual = usuarios.get(usuario_logado);
+        Ficha fichaAtual = usuarioAtual.getFicha();
+        ArrayList<Exercicio> exerciciosAtuais = fichaAtual.getExercicios();
+        String listaExercicios = "";
+        for (Exercicio e : exerciciosAtuais) {
+            if (e.getClass() == Aerobico.class){
+                listaExercicios += e.getNome() + " - Tempo: " + ((Aerobico) e).getTempoMinutos() + " minutos\n";
+            }
+            else{
+                listaExercicios += ((Anaerobico) e).getAtividade() + ": " + e.getNome() + " - Repeticões: " + ((Anaerobico) e).getN_repeticoes() + "x" + ((Anaerobico) e).getN_series() + " - Sug. carga: " + ((Anaerobico) e).getSugestaoDeCarga() + "kg\n";
+            }
+        }
+        return listaExercicios;
     }
 }
