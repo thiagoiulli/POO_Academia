@@ -1,7 +1,7 @@
 package principal;
 
 import controle.Gerenciamento;
-import manArqTxt.ManArqTxt;
+import controle.ManArqTxt;
 import visao.JanelaLogin;
 
 public class Academia {

@@ -3,7 +3,6 @@ package controle;
 import exceptions.LeituraEscritaException;
 import exceptions.UsuarioExistenteException;
 import exceptions.UsuarioOuSenhaIncorretosException;
-import manArqTxt.ManArqTxt;
 import principal.Aerobico;
 import principal.Anaerobico;
 import principal.Pessoa;

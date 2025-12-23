@@ -1,4 +1,4 @@
-package manArqTxt;
+package controle;
 
 import exceptions.LeituraEscritaException;
 import principal.Pessoa;
@@ -146,5 +146,9 @@ public class ManArqTxt {
             fecharArquivoLeituraLogin();
         }
         return usuarios;
+    }
+    
+    public void gravarFicha(String usuario, Ficha ficha){
+
     }
 }
