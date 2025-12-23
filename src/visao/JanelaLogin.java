@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package visao;
 
 import controle.Gerenciamento;
@@ -13,20 +9,58 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
- *
+ * Janela de login do sistema de gerenciamento de academia.
+ * 
+ * <p>Esta é a primeira tela que o usuário vê ao iniciar o sistema. Permite que
+ * usuários existentes façam login ou novos usuários acessem a tela de cadastro.</p>
+ * 
+ * <p><b>Funcionalidades:</b></p>
+ * <ul>
+ *   <li><b>Login:</b> Autenticação de usuário existente</li>
+ *   <li><b>Cadastro:</b> Redirecionamento para tela de novo cadastro</li>
+ * </ul>
+ * 
+ * <p><b>Campos de entrada:</b></p>
+ * <ul>
+ *   <li>Nome de usuário (texto)</li>
+ *   <li>Senha (campo protegido com asteriscos)</li>
+ * </ul>
+ * 
+ * <p><b>Fluxo de login bem-sucedido:</b></p>
+ * <ol>
+ *   <li>Usuário preenche credenciais</li>
+ *   <li>Clica em "Entrar"</li>
+ *   <li>Sistema valida (chama {@link Gerenciamento#parseLogin})</li>
+ *   <li>Se válido: fecha esta janela e abre {@link JanelaPrincipal}</li>
+ *   <li>Se inválido: exibe mensagem de erro</li>
+ * </ol>
+ * 
  * @author natha
+ * @version 1.0
+ * @see JanelaCadastro
+ * @see JanelaPrincipal
+ * @see Gerenciamento#parseLogin
  */
 public class JanelaLogin extends javax.swing.JFrame {
     
+    /**
+     * Logger para registrar eventos da janela.
+     */
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JanelaLogin.class.getName());
+    
+    /**
+     * Referência ao gerenciador central do sistema para operações de negócio.
+     */
     private final Gerenciamento gerenciamento;
 
     /**
-     * Creates new form JanelaLogin
+     * Construtor que cria a janela de login.
+     * 
+     * @param gerenciamento instância do gerenciador do sistema
      */
     public JanelaLogin(Gerenciamento gerenciamento) {
         this.gerenciamento = gerenciamento;
-        initComponents();
+        initComponents();  // Inicializa componentes visuais (código gerado pelo NetBeans)
     }
 
     /**
@@ -194,8 +228,13 @@ public class JanelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_usuarioAncestorAdded
 
+    /**
+     * Evento disparado ao clicar no botão "Cadastro".
+     * Abre a janela de cadastro de novos usuários.
+     * 
+     * @param evt evento do botão
+     */
     private void btn_cadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastroActionPerformed
-        // TODO add your handling code here:
         this.janelaCadastro = new JanelaCadastro(gerenciamento);
         janelaCadastro.setVisible(true);
     }//GEN-LAST:event_btn_cadastroActionPerformed
@@ -204,22 +243,46 @@ public class JanelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtF_senhaActionPerformed
 
+    /**
+     * Evento disparado ao clicar no botão "Entrar".
+     * 
+     * <p>Valida as credenciais do usuário e, se corretas, fecha esta janela
+     * e abre a janela principal do sistema.</p>
+     * 
+     * <p><b>Tratamento de erros:</b></p>
+     * <ul>
+     *   <li>NoSuchAlgorithmException: Erro no algoritmo de hash (genérico)</li>
+     *   <li>UsuarioOuSenhaIncorretosException: Credenciais inválidas (borda vermelha)</li>
+     * </ul>
+     * 
+     * @param evt evento do botão
+     */
     private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt){
         try{
+            // Tenta fazer login com as credenciais fornecidas
             if(gerenciamento.parseLogin(txtF_usuario.getText(), Arrays.toString(txtF_senha.getPassword()))){
-                setVisible(false);
+                setVisible(false);  // Esconde janela de login
                 this.janelaPrincipal = new JanelaPrincipal(gerenciamento);
-                janelaPrincipal.setVisible(true);
+                janelaPrincipal.setVisible(true);  // Mostra janela principal
             }
         } catch (NoSuchAlgorithmException e) {
+            // Erro no algoritmo de criptografia
             JOptionPane.showMessageDialog(getParent(), "Erro fazendo login!", "", JOptionPane.ERROR_MESSAGE);
         } catch (UsuarioOuSenhaIncorretosException e) {
+            // Credenciais inválidas
             JOptionPane.showMessageDialog(getParent(), "Usuario ou senha incorretos!", "", JOptionPane.ERROR_MESSAGE);
-            btn_entrar.setBorder(BorderFactory.createLineBorder(Color.RED));
+            btn_entrar.setBorder(BorderFactory.createLineBorder(Color.RED));  // Destaca erro visualmente
         }
     }
 
+    /**
+     * Referência à janela principal (aberta após login bem-sucedido).
+     */
     private JanelaPrincipal janelaPrincipal;
+    
+    /**
+     * Referência à janela de cadastro (aberta pelo botão Cadastro).
+     */
     private JanelaCadastro janelaCadastro;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

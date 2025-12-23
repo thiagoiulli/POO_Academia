@@ -1,14 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package visao;
 
 import controle.Gerenciamento;
 
 /**
- *
+ * Janela principal do sistema após login bem-sucedido.
+ * 
+ * <p>Esta é a tela central do sistema, exibida após autenticação. Oferece acesso
+ * às principais funcionalidades do sistema através de um menu simples.</p>
+ * 
+ * <p><b>Opções disponíveis:</b></p>
+ * <ul>
+ *   <li><b>Perfil:</b> Visualizar e editar dados pessoais</li>
+ *   <li><b>Cadastrar Treino:</b> Gerar nova ficha de treino personalizada</li>
+ *   <li><b>Ver Treino:</b> Visualizar ficha de treino atual</li>
+ * </ul>
+ * 
  * @author natha
+ * @version 1.0
+ * @see JanelaPerfil
+ * @see JanelaCadastrarTreino
+ * @see JanelaVerTreino
  */
 public class JanelaPrincipal extends javax.swing.JFrame {
     

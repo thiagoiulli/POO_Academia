@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package visao;
 
 import controle.Gerenciamento;
@@ -9,8 +5,20 @@ import controle.Gerenciamento;
 import java.awt.*;
 
 /**
- *
+ * Janela de visualização da ficha de treino do usuário.
+ * 
+ * <p>Exibe a lista completa de exercícios da ficha de treino atual do usuário logado,
+ * incluindo detalhes como repetições, séries, carga e tempo de duração.</p>
+ * 
+ * <p><b>Formato de exibição:</b></p>
+ * <ul>
+ *   <li><b>Aeróbico:</b> Nome - Tempo: X minutos</li>
+ *   <li><b>Anaeróbico:</b> GRUPO: Nome - Repetições: RxS - Sug. carga: Xkg</li>
+ * </ul>
+ * 
  * @author natha
+ * @version 1.0
+ * @see Gerenciamento#verTreino
  */
 public class JanelaVerTreino extends javax.swing.JFrame {
     

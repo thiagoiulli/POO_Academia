@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package visao;
 
 import controle.Gerenciamento;
@@ -12,8 +8,22 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
- *
+ * Janela de visualização e edição do perfil do usuário.
+ * 
+ * <p>Permite ao usuário logado visualizar seus dados pessoais e atualizá-los quando necessário.
+ * O nome de usuário não pode ser alterado (campo somente leitura).</p>
+ * 
+ * <p><b>Campos editáveis:</b></p>
+ * <ul>
+ *   <li>Nome completo</li>
+ *   <li>Email</li>
+ *   <li>Telefone</li>
+ *   <li>Senha (opcional - deixar em branco para não alterar)</li>
+ * </ul>
+ * 
  * @author natha
+ * @version 1.0
+ * @see Gerenciamento#alterarPessoa
  */
 public class JanelaPerfil extends javax.swing.JFrame {
     

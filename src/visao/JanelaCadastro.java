@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package visao;
 
 import controle.Gerenciamento;
@@ -14,8 +10,24 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
- *
+ * Janela de cadastro de novos usuários no sistema.
+ * 
+ * <p>Permite que novos membros se registrem na academia fornecendo seus dados pessoais
+ * e credenciais de acesso. Após cadastro bem-sucedido, o usuário pode fazer login.</p>
+ * 
+ * <p><b>Campos obrigatórios:</b></p>
+ * <ul>
+ *   <li>Usuário (username único)</li>
+ *   <li>Nome completo</li>
+ *   <li>Email</li>
+ *   <li>Telefone</li>
+ *   <li>Senha</li>
+ * </ul>
+ * 
  * @author natha
+ * @version 1.0
+ * @see JanelaLogin
+ * @see Gerenciamento#CadastrarPessoa
  */
 public class JanelaCadastro extends javax.swing.JFrame {
     

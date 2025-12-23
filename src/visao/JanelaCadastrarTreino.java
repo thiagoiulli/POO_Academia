@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package visao;
 
 import controle.Gerenciamento;
@@ -13,8 +9,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *
+ * Janela para geração de treino personalizado.
+ * 
+ * <p>Interface interativa que permite ao usuário selecionar e configurar sua ficha de treino
+ * escolhendo grupos musculares, quantidade de exercícios e nível de dificuldade para cada.</p>
+ * 
+ * <p><b>Opções de treino anaeróbico (musculação):</b></p>
+ * <ul>
+ *   <li>Peito</li>
+ *   <li>Costas</li>
+ *   <li>Bíceps</li>
+ *   <li>Tríceps</li>
+ *   <li>Quadríceps</li>
+ *   <li>Glúteo</li>
+ *   <li>Panturrilha</li>
+ * </ul>
+ * 
+ * <p><b>Opções de treino aeróbico:</b></p>
+ * <ul>
+ *   <li>Corrida, Bicicleta, Natação</li>
+ * </ul>
+ * 
+ * <p><b>Configurações por grupo muscular:</b></p>
+ * <ul>
+ *   <li><b>Quantidade:</b> 1, 2 ou 3 exercícios diferentes</li>
+ *   <li><b>Dificuldade:</b> Muito Leve, Leve, Médio, Intermediário, Difícil, Muito Difícil, Maromba</li>
+ * </ul>
+ * 
  * @author natha
+ * @version 1.0
+ * @see GeraTreino
+ * @see Gerenciamento#gerarTreino
  */
 public class JanelaCadastrarTreino extends javax.swing.JFrame {
     
