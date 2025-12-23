@@ -73,18 +73,11 @@ public class Gerenciamento {
                 throw e;
             }
             usuarios.get(usuario_logado).setSenha(hashSenha);
-            try {
-                manipulartxt.alterarCadastro(usuarios.get(usuario_logado).getUsuario(), nome, email, telefone, hashSenha);
-            } catch (LeituraEscritaException e) {
-                throw e;
-            }
         }
-        else{
-            try{
-                manipulartxt.alterarCadastro(usuarios.get(usuario_logado).getUsuario(), nome, email, telefone, null);
-            } catch (LeituraEscritaException e) {
-                throw e;
-            }
+        try {
+            manipulartxt.alterarCadastro(usuarios.get(usuario_logado));
+        } catch (LeituraEscritaException e) {
+            throw e;
         }
 //        System.out.println(usuarios.get(usuario_logado).getSenha());
     }
@@ -161,7 +154,7 @@ public class Gerenciamento {
 
         usuarios.get(usuario_logado).setFicha(ficha);
         try{
-            manipulartxt.gravarFicha(usuarios.get(usuario_logado));
+            manipulartxt.alterarCadastro(usuarios.get(usuario_logado));
         } catch (LeituraEscritaException e) {
             throw e;
         }

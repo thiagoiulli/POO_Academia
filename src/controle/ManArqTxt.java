@@ -72,50 +72,6 @@ public class ManArqTxt {
 
     // Metodos para Login
 
-    public void alterarCadastro(String usuario, String nome, String email, String telefone, String senha) throws LeituraEscritaException{
-        try{
-            abrirArquivoLeituraLogin();
-        } catch (LeituraEscritaException e) {
-            throw e;
-        }
-        String hashAntigo = "";
-        ArrayList<String> dados = new ArrayList<>();
-        try{
-            while(leitor_login.hasNextLine()){
-                String linha = leitor_login.nextLine();
-                String[] itens = linha.split(";");
-                if (!itens[0].equals(usuario)){
-                    dados.add(linha);
-                }
-                else{
-                    hashAntigo = itens[4];
-                }
-            }
-        } catch (Exception e) {
-            throw new LeituraEscritaException("erro abrindo arquivo!");
-        }
-        finally {
-            fecharArquivoLeituraLogin();
-        }
-        try{
-            abrirArquivoEditor();
-            for (int i = 0; i < dados.size(); i++){
-                gravador_editor.format("%s\n", dados.get(i).trim());
-            }
-            if(senha == null){
-                gravador_editor.format("%s;%s;%s;%s;%s\n", usuario, nome, email, telefone, hashAntigo.trim());
-            }
-            else{
-                gravador_editor.format("%s;%s;%s;%s;%s\n", usuario, nome, email, telefone, senha);
-            }
-        } catch (Exception e) {
-            throw new LeituraEscritaException("erro abrindo arquivo!");
-        }
-        finally {
-            fecharArquivoEditor();
-        }
-    }
-
     public void gravarLogin(String usuario, String nome, String email, String telefone, String senha) throws LeituraEscritaException {
         try{
             abrirArquivoGravacaoLogin();
@@ -167,7 +123,7 @@ public class ManArqTxt {
         return usuarios;
     }
     
-    public void gravarFicha(Pessoa usuario) throws LeituraEscritaException{
+    public void alterarCadastro(Pessoa usuario) throws LeituraEscritaException{
         try{
             abrirArquivoLeituraLogin();
         } catch (LeituraEscritaException e) {
